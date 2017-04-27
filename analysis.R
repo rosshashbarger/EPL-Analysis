@@ -21,20 +21,17 @@ wages = epl$Wages
 points = epl$Points
 
 
-dataList = list("y" = points, "nTeams" = nTeams, "scored" = scored, "conceded" = conceded, "age" = age, 
-                "wages" = wages)
+dataList = list("y" = points, "nTeams" = nTeams, "scored" = scored, "conceded" = conceded)
 
-parameters = c("alpha", "beta", "gamma", "lambda", "alpha_0", "beta_0", "gamma_0", "lambda_0", "sigma_2",
-               "sigma_a2", "sigma_b2", "sigma_g2", "sigma_l2")
+parameters = c("alpha", "beta", "alpha_0", "beta_0", "sigma_2", "sigma_a2", "sigma_b2")
 
-initsValues = list("alpha" = rep(1, nTeams), "beta" = rep(1, nTeams), "gamma" = rep(1, nTeams),
-                   "lambda" = rep(1, nTeams),  "alpha_0" = 0, "beta_0" = 0, "gamma_0" = 0, "sigma_2" = 9,
-                   "lambda_0" = 0, "sigma_a2" = 9, "sigma_b2" = 9, "sigma_g2" = 9, "sigma_l2" = 9)
+initsValues = list("alpha" = rep(1, nTeams), "beta" = rep(1, nTeams),  "alpha_0" = 0, "beta_0" = 0, "sigma_2" = 9,
+                  "sigma_a2" = 1, "sigma_b2" = 1)
 
-adaptSteps = 5000
-burnInSteps = 5000
+adaptSteps = 25000
+burnInSteps = 25000
 nChains = 2
-numSavedSteps = 10000
+numSavedSteps = 50000
 thinSteps = 1
 ITER = ceiling((numSavedSteps * thinSteps )/ nChains)
 
@@ -53,30 +50,13 @@ nVars <- length(varNames)
 
 mcmcChainDF$CHAIN <- as.factor(mcmcChainDF$CHAIN)
 
-for(i in 1:5){
+for(i in 1:nVars){
   p = ggplot(mcmcChainDF, aes(x = ITER, y = mcmcChainDF[ ,varNames[i]])) +
     geom_line(aes(color = CHAIN)) + 
     labs(y = varNames[i])
   print(p)
 }
 
-
-
-
-
-
-
-alpha1.plot = ggplot(mcmcChainDF, aes(x = ITER, y = mcmcChainDF[ ,varNames[1]])) +
-  geom_line(aes(color = CHAIN)) + 
-  labs(y = varNames[1])
-beta1.plot = ggplot(mcmcChainDF, aes(x = ITER, y = mcmcChainDF[ ,varNames[6]])) +
-  geom_line(aes(color = CHAIN)) + 
-  labs(y = varNames[6])
-sigma2.plot = ggplot(mcmcChainDF, aes(x = ITER, y = mcmcChainDF[ ,varNames[10]])) +
-  geom_line(aes(color = CHAIN)) + 
-  labs(y = varNames[10])
-
-grid.arrange(alpha1.plot, beta1.plot, sigma2.plot)
 
 
 mcmcChainDF.box.alpha = mcmcChainDF %>% select(c(3:7)) %>% melt()
