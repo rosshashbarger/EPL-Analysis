@@ -1,0 +1,13 @@
+model
+{
+ for(i in 1:nTeams){
+   y[i] ~ dnorm(mu[i], 1/sigma_2)
+   mu[i] <- alpha[i] * scored[i] + beta[i] * conceded[i] + gamma[i] * age[i] + lambda[i] * wages[i]
+   alpha[i] ~ dnorm(alpha_0, 1/sigma_a2)
+   beta[i] ~ dnorm(beta_0, 1/sigma_b2)
+   gamma[i] ~ dnorm(gamma_0, 1/sigma_g2)
+   lambda[i] ~ dnorm(lambda_0, 1/sigma_l2)
+ }
+
+ alpha_0 ~ 
+}

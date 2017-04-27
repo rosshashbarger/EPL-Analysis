@@ -18,6 +18,11 @@ home.conceded = ddply(results, .(home_name), summarise, home_conceded = sum(away
 away.scored = ddply(results, .(away_name), summarise, away_scored = sum(away_score))
 away.conceded = ddply(results, .(away_name), summarise, away_conceded = sum(home_score))
 scored = home.scored %>% left_join(away.scored, by=c("home_name" = "away_name"))
-scored$total_scored = scored$home_scored + scored$away_scored
+scored = data.frame(Club = scored$home_name, total_scored = scored$home_scored + scored$away_scored)
 conceded = home.conceded %>% left_join(away.conceded, by = c("home_name" = "away_name"))
-conceded$total_conceded = conceded$home_conceded + conceded$away_conceded
+conceded = data.frame(Club = conceded$home_name, total_conceded = conceded$home_conceded + conceded$away_conceded)
+
+
+
+### Create unified dataset for analysis
+epl = key %>% left_join(age) %>% left_join(table) %>% left_join(wages) %>% left_join(scored) %>% left_join(conceded)
