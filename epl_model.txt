@@ -9,5 +9,14 @@ model
    lambda[i] ~ dnorm(lambda_0, 1/sigma_l2)
  }
 
- alpha_0 ~ 
+ alpha_0 ~ dnorm(1, 1/100)
+ beta_0 ~ dnorm(1, 1/100)
+ gamma_0 ~ dnorm(1, 1/100)
+ lambda_0 ~ dnorm(1, 1/100)
+
+ sigma_2 ~ dgamma(1,1)
+ sigma_a2 ~ dgamma(1,1)
+ sigma_b2 ~ dgamma(1,1)
+ sigma_g2 ~ dgamma(1,1)
+ sigma_l2 ~ dgamma(1,1)
 }

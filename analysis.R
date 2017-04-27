@@ -53,6 +53,18 @@ nVars <- length(varNames)
 
 mcmcChainDF$CHAIN <- as.factor(mcmcChainDF$CHAIN)
 
+for(i in 1:5){
+  p = ggplot(mcmcChainDF, aes(x = ITER, y = mcmcChainDF[ ,varNames[i]])) +
+    geom_line(aes(color = CHAIN)) + 
+    labs(y = varNames[i])
+  print(p)
+}
+
+
+
+
+
+
 
 alpha1.plot = ggplot(mcmcChainDF, aes(x = ITER, y = mcmcChainDF[ ,varNames[1]])) +
   geom_line(aes(color = CHAIN)) + 
@@ -65,9 +77,6 @@ sigma2.plot = ggplot(mcmcChainDF, aes(x = ITER, y = mcmcChainDF[ ,varNames[10]])
   labs(y = varNames[10])
 
 grid.arrange(alpha1.plot, beta1.plot, sigma2.plot)
-
-
-
 
 
 mcmcChainDF.box.alpha = mcmcChainDF %>% select(c(3:7)) %>% melt()
