@@ -50,6 +50,7 @@ nVars <- length(varNames)
 
 mcmcChainDF$CHAIN <- as.factor(mcmcChainDF$CHAIN)
 
+
 for(i in 1:nVars){
   p = ggplot(mcmcChainDF, aes(x = ITER, y = mcmcChainDF[ ,varNames[i]])) +
     geom_line(aes(color = CHAIN)) + 
@@ -57,14 +58,14 @@ for(i in 1:nVars){
   print(p)
 }
 
+mcmcChainDF.box.alpha = mcmcChainDF %>% select(c(3:23)) %>% melt()
+alpha.box = ggplot(mcmcChainDF.box.alpha, aes(x=variable, y=value)) + geom_boxplot() + coord_flip() + 
+  labs(x="", y="Change in Points", title="Impact by Team in Goals Scored") + 
+  scale_x_discrete(labels=c(epl$Club, "Hyperparameter"))
+
+mcmcChainDF.box.beta = mcmcChainDF %>% select(c(24:44)) %>% melt()
+beta.box = ggplot(mcmcChainDF.box.beta, aes(x=variable, y=value)) + geom_boxplot() + coord_flip() + 
+  labs(x="", y="Change in Points", title="Impact by Team in Goals Conceded") + 
+  scale_x_discrete(labels=c(epl$Club, "Hyperparameter"))
 
 
-mcmcChainDF.box.alpha = mcmcChainDF %>% select(c(3:7)) %>% melt()
-alpha.box = ggplot(mcmcChainDF.box.alpha, aes(x=variable, y=value)) + geom_boxplot() +
-  labs(x="", y="Change in PCV")
-
-mcmcChainDF.box.beta = mcmcChainDF %>% select(c(8:12)) %>% melt()
-beta.box = ggplot(mcmcChainDF.box.beta, aes(x=variable, y=value)) + geom_boxplot() +
-  labs(x="", y="Change in PCV")
-
-grid.arrange(alpha.box, beta.box)

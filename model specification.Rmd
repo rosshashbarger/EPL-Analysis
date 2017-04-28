@@ -1,0 +1,36 @@
+---
+title: "Model Specification"
+author: "Ross Hashbarger"
+date: "April 27, 2017"
+output: html_document
+---
+
+For this data, let $scored_i$ indicate the number of goals scored in the 2015-2016 Premier League season for team $i$, and let $conceded_i$ indicate the number of goals conceded in the 2015-2016 Premier League season for team $i$. Consider the following Bayesian hierarchical model for the data. Let $y_i$ be be the final point total for the $i$th team and take $\boldsymbol{y}=${$y_i:i=1,...,20$}. Thus, assume that:
+$$
+p(\boldsymbol{y} | \boldsymbol{\alpha}, \boldsymbol{\beta}, \sigma^2) = \prod_{i=1}^{20}p(y_i | \alpha_i, \beta_i, \sigma^2)
+$$
+where, for all $i=1,...,20$,
+$$
+p(y_i | \alpha_i, \beta_i, \sigma^2) = N(\mu_i, \sigma^2)
+$$
+and $\mu_i = \alpha_i*scored_i + \beta_i*conceded_i$. Let
+$$
+p(\boldsymbol{\alpha}, \boldsymbol{\beta}, \sigma^2 | \alpha_0, \beta_0, \sigma_{\alpha}^2, \sigma_{\beta}^2) = [\prod_{i=1}^{20}p(\alpha_i | \alpha_0, \sigma_{\alpha}^2)p(\beta_i | \beta_0, \sigma_{\beta}^2)]p(\sigma^2)
+$$
+where, for all $i=1,...,20$, $p(\alpha_i | \alpha_0, \sigma_{\alpha}^2) = N(\alpha_0, \sigma_{\alpha}^2)$, $p(\beta_i | \beta_0, \sigma_{\beta}^2) = N(\beta_0, \sigma_{\beta}^2)$, $p(\alpha_0, \sigma_{\alpha}^2) = p(\alpha_0) p(\sigma_{\alpha}^2)$, and $p(\beta_0, \sigma_{\beta}^2) = p(\beta_0) p(\sigma_{\beta}^2)$. Finally, $\alpha_0 \sim N(0, 100)$, $\beta_0 \sim N(0, 100)$, $\sigma_{\alpha}^2 \sim IG(1, 1)$, and $\sigma_{\beta}^2 \sim IG(1, 1)$
+
+$\alpha_i$ is the estimated change in total points from a one goal increase in total goals scored for team $i$  
+$\alpha_0$ is the estimated change in total points from a one goal increase in total goals scored across teams  
+$\sigma_{\alpha}^2$ is the variation about the estimated change from an increase in goals scored across teams  
+$\beta_i$ is the estimated change in total points from a one goal increase in total goals conceded for team $i$  
+$\beta_0$ is the estimated change in total points from a one goal increase in total goals conceded across teams  
+$\sigma_{\beta}^2$ is the variation about the estimated change from an increase in goals scored across teams  
+$\sigma_2$ is the variation about the total points across teams
+
+
+
+
+
+
+
+

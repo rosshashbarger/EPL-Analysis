@@ -11,9 +11,7 @@ model
  alpha_0 ~ dnorm(0, 1/100)
  beta_0 ~ dnorm(0, 1/100)
 
-
  sigma_2 ~ dgamma(1,1)
  sigma_a2 ~ dgamma(1,1)
  sigma_b2 ~ dgamma(1,1)
-
 }
