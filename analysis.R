@@ -67,5 +67,3 @@ mcmcChainDF.box.beta = mcmcChainDF %>% select(c(24:44)) %>% melt()
 beta.box = ggplot(mcmcChainDF.box.beta, aes(x=variable, y=value)) + geom_boxplot() + coord_flip() + 
   labs(x="", y="Change in Points", title="Impact by Team in Goals Conceded") + 
   scale_x_discrete(labels=c(epl$Club, "Hyperparameter"))
-
-
